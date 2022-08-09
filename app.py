@@ -15,7 +15,7 @@ class MainApp:
     def __init__(self) -> None:
         self.root = tk.Tk()
         self.root.title(
-            "HidroSedi - IVMDSS: Index Velocity Method's Data Storage Sytem - Module 1"
+            "HidroSedi - IVMDSS: Index Velocity Method's Data Storage System - Module 1"
         )
         self.root.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")
         self.root.minsize(width=APP_WIDTH, height=APP_HEIGHT)

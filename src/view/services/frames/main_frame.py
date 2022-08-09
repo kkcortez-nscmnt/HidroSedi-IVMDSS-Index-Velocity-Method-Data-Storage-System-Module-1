@@ -7,6 +7,7 @@ from src.usecase import (
     FileDiolog,
     InsertM9Data,
     InsertSl500Data,
+    ExportFile,
 )
 from src.view.services.frames.DataFrame import FrameData
 
@@ -31,4 +32,5 @@ class MainFrame:
             InsertSl500Data,
             DeleteSL500Data,
             DatEntityRepository,
+            ExportFile,
         )

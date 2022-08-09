@@ -11,6 +11,7 @@ from src.usecase import (
     FileDiolog,
     InsertM9Data,
     InsertSl500Data,
+    ExportFile,
 )
 
 
@@ -61,6 +62,7 @@ class FrameData(PopulateTrv, GetCod):
         sl500_data: Type[InsertSl500Data],
         sl500_data_delete: Type[DeleteSL500Data],
         dat_entity_repository: Type[DatEntityRepository],
+        export_file: Type[ExportFile],
         query_cod=None,
     ) -> None:
 
@@ -71,6 +73,7 @@ class FrameData(PopulateTrv, GetCod):
         self.sl500_data = sl500_data
         self.sl500_data_delete = sl500_data_delete
         self.dat_entity_repository = dat_entity_repository
+        self.export_file = export_file
 
         self.var_initial_datetime = tk.StringVar()
         self.var_final_datetime = tk.StringVar()
@@ -86,22 +89,34 @@ class FrameData(PopulateTrv, GetCod):
 
         ########## Serviços de Exportação ##########
         self.label_export_data = ttk.LabelFrame(
-            self.data_container_frame, text="Manage data:"
+            self.data_container_frame, text="Data Handling:"
         )
-        self.label_export_data.place(relx=0.003, rely=0.8, height=60, width=300)
+        self.label_export_data.place(relx=0.015, rely=0.8, height=60, width=300)
 
         self.export_xlxs_btn = ttk.Button(
-            self.label_export_data, padding=2, text="Export as .xlsx"
+            self.label_export_data,
+            padding=2,
+            text="Export as .xlsx",
+            command=lambda: self.export_file.export_to_excel(self),
         )
         self.export_xlxs_btn.place(relx=0.02, rely=0.3)
 
         self.export_csv_btn = ttk.Button(
-            self.label_export_data, padding=2, text="Export as .csv"
+            self.label_export_data,
+            padding=2,
+            text="Export as .csv",
+            command=lambda: self.export_file.export_to_csv(self),
         )
         self.export_csv_btn.place(relx=0.35, rely=0.3)
 
         self.del_all_data_btn = ttk.Button(
-            self.label_export_data, padding=2, text="Clear Data Base"
+            self.label_export_data,
+            padding=2,
+            text="Clear Data Base",
+            command=lambda: [
+                self.delete_data_from_dat_table(),
+                self.delete_data_from_mat_table(),
+            ],
         )
         self.del_all_data_btn.place(relx=0.67, rely=0.3)
 
@@ -109,12 +124,12 @@ class FrameData(PopulateTrv, GetCod):
         self.label_frame_m9 = ttk.LabelFrame(
             self.data_container_frame, text="Load M9 Data"
         )
-        self.label_frame_m9.place(relx=0.003, rely=0.48, height=93, width=460)
+        self.label_frame_m9.place(relx=0.015, rely=0.48, height=93, width=460)
 
         self.label_frame_m9_trv = ttk.LabelFrame(
             self.data_container_frame, text="View M9 Data"
         )
-        self.label_frame_m9_trv.place(relx=0.70, rely=0.009, height=345, width=346)
+        self.label_frame_m9_trv.place(relx=0.70, rely=0.009, height=345, width=400)
 
         # __botoes__ #
 
@@ -154,7 +169,7 @@ class FrameData(PopulateTrv, GetCod):
         self.m9_data_trv = ttk.Treeview(
             self.label_frame_m9_trv, columns=(1, 2, 3, 4), show="headings", height="15"
         )
-        self.m9_data_trv.pack(anchor=tk.W)
+        self.m9_data_trv.pack(anchor=tk.S, fill="x")
         self.m9_data_trv.heading(1, text="Cod")
         self.m9_data_trv.column(1, width=40, anchor="c")
         self.m9_data_trv.heading(2, text="Total_Q(m³/s)")
@@ -181,12 +196,12 @@ class FrameData(PopulateTrv, GetCod):
         self.label_frame_sl500 = ttk.LabelFrame(
             self.data_container_frame, text="Load SL500 Data"
         )
-        self.label_frame_sl500.place(relx=0.003, rely=0.009, height=140, width=460)
+        self.label_frame_sl500.place(relx=0.015, rely=0.009, height=140, width=460)
 
         self.label_frame_sl500_trv = ttk.LabelFrame(
             self.data_container_frame, text="View SL500 Data"
         )
-        self.label_frame_sl500_trv.place(relx=0.40, rely=0.009, height=345, width=346)
+        self.label_frame_sl500_trv.place(relx=0.38, rely=0.009, height=345, width=400)
 
         # Entrada Data Inicial
         self.entry_initial_datetime = ttk.Entry(
@@ -257,7 +272,7 @@ class FrameData(PopulateTrv, GetCod):
             show="headings",
             height="15",
         )
-        self.sl500_data_trv.pack(anchor=tk.S)
+        self.sl500_data_trv.pack(anchor=tk.S, fill="x")
         self.sl500_data_trv.heading(1, text="Cod")
         self.sl500_data_trv.column(1, width=40, anchor="c")
         self.sl500_data_trv.heading(2, text="Date Time")
