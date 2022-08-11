@@ -31,12 +31,12 @@ class ExportFile:
 
             self.dt_mat = pd.DataFrame(
                 self.mat_table,
-                columns=["cod", "Total_Q (m3/s)", "Area(m2)", "Mean Velocity(m/s)"],
+                columns=["cod", "total_q (m3/s)", "area(m2)", "mean_velocity(m/s)"],
             )
 
             self.dt_dat = pd.DataFrame(
                 self.dat_table,
-                columns=["cod", "DateTime", "Veocity_X(m/s)", "Level(m)"],
+                columns=["cod", "dateTime", "velocity_x(m/s)", "level(m)"],
             )
             try:
                 with filedialog.asksaveasfile(
@@ -69,12 +69,12 @@ class ExportFile:
 
             self.dt_mat = pd.DataFrame(
                 self.mat_table,
-                columns=["cod", "Total_Q (m3/s)", "Area(m2)", "Mean Velocity(m/s)"],
+                columns=["cod", "total_q(m3/s)", "area(m2)", "mean_velocity(m/s)"],
             )
 
             self.dt_dat = pd.DataFrame(
                 self.dat_table,
-                columns=["cod", "DateTime", "Veocity_X(m/s)", "Level(m)"],
+                columns=["cod", "date_time", "velocity_x(m/s)", "level(m)"],
             )
             try:
                 with filedialog.asksaveasfile(
