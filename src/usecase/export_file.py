@@ -36,7 +36,7 @@ class ExportFile:
 
             self.dt_dat = pd.DataFrame(
                 self.dat_table,
-                columns=["cod", "dateTime", "velocity_x(m/s)", "level(m)"],
+                columns=["cod", "date_time", "velocity_x(m/s)", "level(m)"],
             )
             try:
                 with filedialog.asksaveasfile(
