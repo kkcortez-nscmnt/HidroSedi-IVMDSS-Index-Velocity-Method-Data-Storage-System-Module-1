@@ -25,7 +25,7 @@ class ExportFile:
 
             self.dat_table = cursor.execute(
                 """
-                SELECT * FROM mat_table
+                SELECT * FROM dat_table
                 """
             ).fetchall()
 
@@ -63,7 +63,7 @@ class ExportFile:
 
             self.dat_table = cursor.execute(
                 """
-                SELECT * FROM mat_table
+                SELECT * FROM dat_table
                 """
             ).fetchall()
 
