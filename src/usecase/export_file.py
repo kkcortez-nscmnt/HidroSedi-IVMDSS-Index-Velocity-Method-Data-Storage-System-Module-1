@@ -31,7 +31,7 @@ class ExportFile:
 
             self.dt_mat = pd.DataFrame(
                 self.mat_table,
-                columns=["cod", "total_q (m3/s)", "area(m2)", "mean_velocity(m/s)"],
+                columns=["cod", "total_q(m3/s)", "area(m2)", "mean_velocity(m/s)"],
             )
 
             self.dt_dat = pd.DataFrame(
