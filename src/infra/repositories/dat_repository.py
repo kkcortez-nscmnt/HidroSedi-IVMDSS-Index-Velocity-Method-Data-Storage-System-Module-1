@@ -39,7 +39,7 @@ class DatEntityRepository(DataFrame):
             dat_df["Date"] = to_datetime(dat_df.loc[:, "Year":"Second"])
             dat_df = dat_df[(dat_df.Date >= initial_time) & (dat_df.Date <= final_time)]
             date_time = str(dat_df.iat[0, 8])
-            velocity_x = round(float(dat_df.iat[0, 6]), 3)
+            velocity_x = round(float((dat_df.iat[0, 6]) / 100), 3)
             level = round((float(dat_df.iat[0, 7]) * CONVERTE_DBA_PARA_MCA), 3)
 
             cursor.execute(

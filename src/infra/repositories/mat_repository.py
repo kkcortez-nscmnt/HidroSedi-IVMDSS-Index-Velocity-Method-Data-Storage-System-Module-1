@@ -16,6 +16,9 @@ class MatEntityRepository:
 
         with DBConnectionHandler(file_name="DataBase.db") as cursor:
             mat_df = loadmat(file_path)
+
+            query_dat_table_id = """ SELECT * FROM dat_table WHERE cod = (SELECT MAX(cod) FROM dat_table) """
+            cod = cursor.execute(query_dat_table_id).fetchone()
             flow_rate = mat_df["Summary"]["Total_Q"]
             flow_rate = flow_rate[0][0][-1][0]
             area = mat_df["Summary"]["Area"]
@@ -28,8 +31,8 @@ class MatEntityRepository:
             rounded_mean_velocity = round(mean_velocity, 3)
 
             cursor.execute(
-                """INSERT INTO mat_table ( flow_rate, area, mean_velocity) VALUES (?, ?, ?)""",
-                (rounded_flow_rate, rounded_area, rounded_mean_velocity),
+                """INSERT INTO mat_table (cod, flow_rate, area, mean_velocity) VALUES (?, ?, ?, ?)""",
+                (cod[0], rounded_flow_rate, rounded_area, rounded_mean_velocity),
             )
 
             mat_model = MatEntityModel(

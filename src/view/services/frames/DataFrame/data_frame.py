@@ -172,9 +172,9 @@ class FrameData(PopulateTrv, GetCod):
         self.m9_data_trv.pack(anchor=tk.S, fill="x")
         self.m9_data_trv.heading(1, text="Cod")
         self.m9_data_trv.column(1, width=40, anchor="c")
-        self.m9_data_trv.heading(2, text="Total_Q(m³/s)")
+        self.m9_data_trv.heading(2, text="Total_Q (m³/s)")
         self.m9_data_trv.column(2, width=100, anchor="c")
-        self.m9_data_trv.heading(3, text="Area(m²)")
+        self.m9_data_trv.heading(3, text="Area (m²)")
         self.m9_data_trv.column(3, width=100, anchor="c")
         self.m9_data_trv.heading(4, text="Mean Velocity (m/s)")
         self.m9_data_trv.column(4, width=100, anchor="c")
@@ -279,7 +279,7 @@ class FrameData(PopulateTrv, GetCod):
         self.sl500_data_trv.column(2, width=100, anchor="c")
         self.sl500_data_trv.heading(3, text="Velocity X (m/s)")
         self.sl500_data_trv.column(3, width=100, anchor="c")
-        self.sl500_data_trv.heading(4, text="Level(m)")
+        self.sl500_data_trv.heading(4, text="Level (m)")
         self.sl500_data_trv.column(4, width=100, anchor="c")
 
         self.sl500_trv_scroll_lista = tk.Scrollbar(
@@ -323,14 +323,16 @@ class FrameData(PopulateTrv, GetCod):
         :return - None
         """
         self.file_path = self.get_m9_data()
-
-        if self.file_path:
-            self.m9_data._insert_m9_data_to_data_base(self, self.file_path)
-            messagebox.showinfo("Info!", "Inserted data!")
-            self.populate_m9_trv()
-            return None
-        else:
-            messagebox.showerror("Value Error", "Need to select a .mat file")
+        try:
+            if self.file_path:
+                self.m9_data._insert_m9_data_to_data_base(self, self.file_path)
+                messagebox.showinfo("Info!", "Inserted data!")
+                self.populate_m9_trv()
+                return None
+        except:
+            messagebox.showerror(
+                "Value Error", "Need to insert a related .dat file first!"
+            )
 
     def delete_data_from_mat_table(self):
         """
