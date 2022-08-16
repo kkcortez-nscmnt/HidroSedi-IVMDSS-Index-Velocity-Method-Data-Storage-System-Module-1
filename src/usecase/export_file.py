@@ -1,4 +1,4 @@
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 import pandas as pd
 from src.infra.config import DBConnectionHandler
@@ -44,6 +44,7 @@ class ExportFile:
                 ) as file:
                     self.df_final = pd.merge(self.dt_dat, self.dt_mat, how="outer")
                     self.df_final_xlsx = self.df_final.to_excel(file.name, index=False)
+                    messagebox.showinfo("INFO", "Exported data as .xlsx file!")
             except AttributeError:
                 print("Cancelled Save")
 
@@ -82,5 +83,6 @@ class ExportFile:
                 ) as file:
                     self.df_final = pd.merge(self.dt_dat, self.dt_mat, how="outer")
                     self.df_final_xlsx = self.df_final.to_csv(file.name, index=False)
+                    messagebox.showinfo("INFRO", "Exported data as .csv file!")
             except AttributeError:
                 print("Cancelled Save")
