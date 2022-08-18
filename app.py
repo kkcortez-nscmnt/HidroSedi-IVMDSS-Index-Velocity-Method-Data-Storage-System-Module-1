@@ -1,10 +1,54 @@
 import tkinter as tk
+from tkinter.messagebox import askokcancel
 
 from src.domain.entities import DatEntity, MatEntity
 from src.view.services.frames import MainFrame
 
 APP_WIDTH = 1292
-APP_HEIGHT = 358
+APP_HEIGHT = 380
+TEXT1 = """
+This application is intended to serve as a utility for managing flow monitoring data analysis,
+in control sections monitored by SonTek's SL500 and M9 equipment and RiverSurveyour software.
+
+Follow the steps to use it:
+1) Select a file  with .dat extension.
+2) Enter the starting time and final time of the measurement in date time format.
+   E.g. "1989-10-39 05:30:31" .
+3) Enter the record into the database.
+4) Select a file with .mat extension, file corresponding to the measurement.
+5) Insert the record into the database.
+6) Export the data in the desired format.
+
+Code and Development:
+
+Jamilson do Nascimento
+github.com/kkcortez-nscmnt
+jamil.pyhidrodev@gmail.com
+---------------------------------------------------------------------------------
+
+Suport:
+
+Gilberto Loguercio Collares
+gilbertocollares@gmail.com
+
+Guilherme Kruger Bartels
+guilhermebartels@gmail.com
+
+George Marino Soares Gonçalves
+george.marino.goncalves@gmail.com
+
+Lukas dos Santos Boeira
+lukasdossantosboeira@gmail.com
+
+Arlene Fehrenbach
+arlenefehrenbach@outlook..com
+----------------------------------------------------------------------
+Universidade Federal de Pelotas - UFPel https://portal.ufpel.edu.br
+NEPE - HidroSedi http://www.hidrosedi.com
+Agência de Desenvolvimento da Bacia da Lagoa Mirim - São Gonçalo.
+https://wp.ufpel.edu.br/alm/banco-de-dados-da-bacia-da-lagoa-mirim/
+
+"""
 
 
 class MainApp:
@@ -17,6 +61,7 @@ class MainApp:
         self.root.title(
             "HidroSedi - IVMDSS: Index Velocity Method's Data Storage System - Module 1"
         )
+        self.root.iconbitmap("D:\TCC\index_velocity_method\img\icon.ico")
         self.root.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")
         self.root.minsize(width=APP_WIDTH, height=APP_HEIGHT)
         self.root.resizable(1, 0)
@@ -29,6 +74,24 @@ class MainApp:
 
         self.main_frame = MainFrame(self.root)
 
+        self.menu_bar = tk.Menu(self.root)
+        self.root.config(menu=self.menu_bar)
+
+        def quit():
+            askok_cancel = askokcancel("Attention!", "Exit Application ?")
+            if askok_cancel:
+                self.root.destroy()
+
+        def about_window():
+            top_abt_win = tk.Toplevel()
+            top_abt_win.title("Information")
+            top_abt_win.geometry("555x655")
+            top_abt_win.resizable(0, 0)
+            info_lbl = tk.Label(top_abt_win, text=TEXT1)
+            info_lbl.grid(row=0, column=0)
+
+        self.menu_bar.add_command(label="About", command=about_window)
+        self.menu_bar.add_command(label="Exit", command=quit)
         self.root.mainloop()
 
 

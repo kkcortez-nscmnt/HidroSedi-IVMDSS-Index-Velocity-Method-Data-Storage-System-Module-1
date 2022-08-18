@@ -160,14 +160,17 @@ class FrameData(PopulateTrv, GetCod):
         )
         self.btn_delete_m9_data.place(relx=0.82, rely=0.6)
 
-        # Label para o path dos caminhos de arquivos M()
+        # Label para o path dos caminhos de arquivos M9
         self.label_m9_mat_path = ttk.Label(
             self.label_frame_m9, relief="ridge", anchor="w"
         )
         self.label_m9_mat_path.place(relx=0.195, rely=0.071, height=23.6, width=366)
 
         self.m9_data_trv = ttk.Treeview(
-            self.label_frame_m9_trv, columns=(1, 2, 3, 4), show="headings", height="15"
+            self.label_frame_m9_trv,
+            columns=(1, 2, 3, 4),
+            show="headings",
+            height="14.5",
         )
         self.m9_data_trv.pack(anchor=tk.S, fill="x")
         self.m9_data_trv.heading(1, text="Cod")
@@ -270,7 +273,7 @@ class FrameData(PopulateTrv, GetCod):
             self.label_frame_sl500_trv,
             columns=(1, 2, 3, 4),
             show="headings",
-            height="15",
+            height="14.5",
         )
         self.sl500_data_trv.pack(anchor=tk.S, fill="x")
         self.sl500_data_trv.heading(1, text="Cod")
