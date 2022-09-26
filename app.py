@@ -7,17 +7,18 @@ from src.view.services.frames import MainFrame
 APP_WIDTH = 1292
 APP_HEIGHT = 380
 TEXT1 = """
-This application is intended to serve as a utility for managing flow monitoring data analysis,
-in control sections monitored by SonTek's SL500 and M9 equipment and RiverSurveyour software.
+
+This application is intended to serve as a utility to manage the analysis of watercourse flow monitoring data,
+in control sections monitored by SonTek's SL500 and M9 equipment.
 
 Follow the steps to use it:
-1) Select a file  with .dat extension.
-2) Enter the starting time and final time of the measurement in date time format.
+1) Select a .dat file extension.
+2) Enter the starting time and final time of the measurement on date-time format.
    E.g. "1989-10-39 05:30:31" .
-3) Enter the record into the database.
-4) Select a file with .mat extension, file corresponding to the measurement.
-5) Insert the record into the database.
-6) Export the data in the desired format.
+3) Record the data into the database.
+4) Select a .mat file extension, file corresponding to the measurement file of the step 2.
+5) Reccor the data into the database.
+6) Export the data in the desired format (.xlsx or .csv).
 
 Code and Development:
 
@@ -26,7 +27,7 @@ github.com/kkcortez-nscmnt
 jamil.pyhidrodev@gmail.com
 ---------------------------------------------------------------------------------
 
-Suport:
+Development:
 
 Gilberto Loguercio Collares
 gilbertocollares@gmail.com
@@ -36,6 +37,8 @@ guilhermebartels@gmail.com
 
 George Marino Soares Gonçalves
 george.marino.goncalves@gmail.com
+----------------------------------------------------------------------------------
+Support:
 
 Lukas dos Santos Boeira
 lukasdossantosboeira@gmail.com
@@ -59,7 +62,7 @@ class MainApp:
     def __init__(self) -> None:
         self.root = tk.Tk()
         self.root.title(
-            "HidroSedi - IVMDSS: Index Velocity Method's Data Storage System - Module 1"
+            "IVMDSS: Index Velocity Method's Data Storage System - Module 1"
         )
         self.root.iconbitmap("D:\TCC\index_velocity_method\img\icon.ico")
         self.root.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")

@@ -170,7 +170,7 @@ class FrameData(PopulateTrv, GetCod):
             self.label_frame_m9_trv,
             columns=(1, 2, 3, 4),
             show="headings",
-            height="14.5",
+            height="15",
         )
         self.m9_data_trv.pack(anchor=tk.S, fill="x")
         self.m9_data_trv.heading(1, text="Cod")
@@ -273,7 +273,7 @@ class FrameData(PopulateTrv, GetCod):
             self.label_frame_sl500_trv,
             columns=(1, 2, 3, 4),
             show="headings",
-            height="14.5",
+            height="15",
         )
         self.sl500_data_trv.pack(anchor=tk.S, fill="x")
         self.sl500_data_trv.heading(1, text="Cod")
