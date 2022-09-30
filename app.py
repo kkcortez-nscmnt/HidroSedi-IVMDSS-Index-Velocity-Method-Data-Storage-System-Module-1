@@ -8,7 +8,7 @@ APP_WIDTH = 1292
 APP_HEIGHT = 380
 TEXT1 = """
 
-This application is intended to serve as a utility to manage the analysis of watercourse flow monitoring data,
+Esta Aplicação is intended to serve as a utility to manage the analysis of watercourse flow monitoring data,
 in control sections monitored by SonTek's SL500 and M9 equipment.
 
 Follow the steps to use it:
