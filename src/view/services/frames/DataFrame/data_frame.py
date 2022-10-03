@@ -89,14 +89,14 @@ class FrameData(PopulateTrv, GetCod):
 
         ########## Serviços de Exportação ##########
         self.label_export_data = ttk.LabelFrame(
-            self.data_container_frame, text="Data Handling:"
+            self.data_container_frame, text="Exportar Dados:"
         )
-        self.label_export_data.place(relx=0.015, rely=0.8, height=60, width=300)
+        self.label_export_data.place(relx=0.015, rely=0.8, height=60, width=320)
 
         self.export_xlxs_btn = ttk.Button(
             self.label_export_data,
             padding=2,
-            text="Export as .xlsx",
+            text="Exportar .xlsx",
             command=lambda: self.export_file.export_to_excel(self),
         )
         self.export_xlxs_btn.place(relx=0.02, rely=0.3)
@@ -104,7 +104,7 @@ class FrameData(PopulateTrv, GetCod):
         self.export_csv_btn = ttk.Button(
             self.label_export_data,
             padding=2,
-            text="Export as .csv",
+            text="Exportar .csv",
             command=lambda: self.export_file.export_to_csv(self),
         )
         self.export_csv_btn.place(relx=0.35, rely=0.3)
@@ -112,7 +112,7 @@ class FrameData(PopulateTrv, GetCod):
         self.del_all_data_btn = ttk.Button(
             self.label_export_data,
             padding=2,
-            text="Clear Data Base",
+            text="Deletar Dados",
             command=lambda: [
                 self.delete_data_from_dat_table(),
                 self.delete_data_from_mat_table(),
@@ -122,7 +122,7 @@ class FrameData(PopulateTrv, GetCod):
 
         ########## Serviços dos dados do M9 ##########
         self.label_frame_m9 = ttk.LabelFrame(
-            self.data_container_frame, text="Load M9 Data"
+            self.data_container_frame, text="Dados HydroSurveyor M9"
         )
         self.label_frame_m9.place(relx=0.015, rely=0.48, height=93, width=460)
 
@@ -133,11 +133,11 @@ class FrameData(PopulateTrv, GetCod):
 
         # __botoes__ #
 
-        # Botão para carrgar path de arquivos m9
+        # Botão para carregar path de arquivos m9
         self.btn_m9_file = ttk.Button(
             self.label_frame_m9,
             padding=2,
-            text="Load .mat file",
+            text="Arquivo .mat",
             command=self.loat_m9_file_path,
         )  # todo
         self.btn_m9_file.place(relx=0.01, rely=0.04)
@@ -146,7 +146,7 @@ class FrameData(PopulateTrv, GetCod):
         self.btn_insert_m9_data = ttk.Button(
             self.label_frame_m9,
             padding=2,
-            text="Insert Data",
+            text="Inserir Dado",
             command=self.insert_m9_data,
         )
         self.btn_insert_m9_data.place(relx=0.64, rely=0.6)
@@ -155,7 +155,7 @@ class FrameData(PopulateTrv, GetCod):
         self.btn_delete_m9_data = ttk.Button(
             self.label_frame_m9,
             padding=2,
-            text="Delete Data",
+            text="Deletar Dado",
             command=lambda: [self.delete_from_mat_table_trv(), self.populate_m9_trv()],
         )
         self.btn_delete_m9_data.place(relx=0.82, rely=0.6)
@@ -175,11 +175,11 @@ class FrameData(PopulateTrv, GetCod):
         self.m9_data_trv.pack(anchor=tk.S, fill="x")
         self.m9_data_trv.heading(1, text="Cod")
         self.m9_data_trv.column(1, width=40, anchor="c")
-        self.m9_data_trv.heading(2, text="Total_Q (m³/s)")
+        self.m9_data_trv.heading(2, text="Vazão (m³/s)")
         self.m9_data_trv.column(2, width=100, anchor="c")
-        self.m9_data_trv.heading(3, text="Area (m²)")
+        self.m9_data_trv.heading(3, text="Área (m²)")
         self.m9_data_trv.column(3, width=100, anchor="c")
-        self.m9_data_trv.heading(4, text="Mean Velocity (m/s)")
+        self.m9_data_trv.heading(4, text="Vel. Méd. (m/s)")
         self.m9_data_trv.column(4, width=100, anchor="c")
 
         self.m9_trv_scroll_lista = tk.Scrollbar(
@@ -197,7 +197,7 @@ class FrameData(PopulateTrv, GetCod):
 
         ########## Services SL500 ##########
         self.label_frame_sl500 = ttk.LabelFrame(
-            self.data_container_frame, text="Load SL500 Data"
+            self.data_container_frame, text="Dados SideLooker 500"
         )
         self.label_frame_sl500.place(relx=0.015, rely=0.009, height=140, width=460)
 
@@ -225,7 +225,7 @@ class FrameData(PopulateTrv, GetCod):
         self.btn_sl500_file = ttk.Button(
             self.label_frame_sl500,
             padding=2,
-            text="Load .dat file",
+            text=" Arquivo .dat",
             command=self.load_sl500_file_data,
         )
         self.btn_sl500_file.place(relx=0.01, rely=0.04)
@@ -234,7 +234,7 @@ class FrameData(PopulateTrv, GetCod):
         self.btn_insert_sl500_data = ttk.Button(
             self.label_frame_sl500,
             padding=2,
-            text="Insert Data",
+            text="Inserir Dado",
             command=self.insert_sl500_data,
         )
         self.btn_insert_sl500_data.place(relx=0.64, rely=0.72)
@@ -243,7 +243,7 @@ class FrameData(PopulateTrv, GetCod):
         self.btn_delete_sl500_data = ttk.Button(
             self.label_frame_sl500,
             padding=2,
-            text="Delete Data",
+            text="Deletar Dado",
             command=lambda: [
                 self.delete_from_dat_table_trv(),
                 self.populate_sl500_trv(),
@@ -253,12 +253,12 @@ class FrameData(PopulateTrv, GetCod):
 
         # Rotulo Datetime Incial
         self.label_initial_datetime = ttk.Label(
-            self.label_frame_sl500, text="Initial Time:"
+            self.label_frame_sl500, text="Data Inicial:"
         )
         self.label_initial_datetime.place(relx=0.02, rely=0.47, height=23)
         # Rotulo Datetime final
         self.label_final_datetime = ttk.Label(
-            self.label_frame_sl500, text="Final Time:"
+            self.label_frame_sl500, text="Data Final:"
         )
         self.label_final_datetime.place(relx=0.02, rely=0.75, height=23)
 
@@ -280,9 +280,9 @@ class FrameData(PopulateTrv, GetCod):
         self.sl500_data_trv.column(1, width=40, anchor="c")
         self.sl500_data_trv.heading(2, text="Date Time")
         self.sl500_data_trv.column(2, width=100, anchor="c")
-        self.sl500_data_trv.heading(3, text="Velocity X (m/s)")
+        self.sl500_data_trv.heading(3, text="Vel. X (m/s)")
         self.sl500_data_trv.column(3, width=100, anchor="c")
-        self.sl500_data_trv.heading(4, text="Level (m)")
+        self.sl500_data_trv.heading(4, text="Nível (m)")
         self.sl500_data_trv.column(4, width=100, anchor="c")
 
         self.sl500_trv_scroll_lista = tk.Scrollbar(

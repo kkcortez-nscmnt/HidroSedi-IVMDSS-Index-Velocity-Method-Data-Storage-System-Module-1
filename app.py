@@ -8,26 +8,28 @@ APP_WIDTH = 1292
 APP_HEIGHT = 380
 TEXT1 = """
 
-Esta Aplicação is intended to serve as a utility to manage the analysis of watercourse flow monitoring data,
-in control sections monitored by SonTek's SL500 and M9 equipment.
+O objetivo desta aplicação é funcionar como um utilitário para dar suporte ao tratamento de dados
+obtidos pelos equipamentos acústicos de effeito Doppler SideLooker 500 (SL500) e HydroSurveyor M9 da marca
+SonTek.
 
-Follow the steps to use it:
-1) Select a .dat file extension.
-2) Enter the starting time and final time of the measurement on date-time format.
-   E.g. "1989-10-39 05:30:31" .
-3) Record the data into the database.
-4) Select a .mat file extension, file corresponding to the measurement file of the step 2.
-5) Reccor the data into the database.
-6) Export the data in the desired format (.xlsx or .csv).
+Execute os seguintes passos para usá-lo:
+1) Selecione um arquivo de extensão .dat proveniennte do equipamento SL500.
+2) Insira as datas inicial e final das medição realizada pelo equipamento M9 no formato date-time.
+   Ex: "1989-10-39 05:30:31" .
+3) Registre o dado no banco de dados.
+4) Selecione um arquivo de extensção .mat proveniente do equimanto M9 e que se relacione com o arquivo
+selecionado no passo 2.
+5) Registre o dado no banco de dados.
+6) Exporte os dados registrados em arquivo com extensão desejada (.xlsx ou .csv)
 
-Code and Development:
+Código fonte e desenvolvimento:
 
 Jamilson do Nascimento
 github.com/kkcortez-nscmnt
 jamil.pyhidrodev@gmail.com
 ---------------------------------------------------------------------------------
 
-Development:
+Desenvolvimento:
 
 Gilberto Loguercio Collares
 gilbertocollares@gmail.com
@@ -38,7 +40,7 @@ guilhermebartels@gmail.com
 George Marino Soares Gonçalves
 george.marino.goncalves@gmail.com
 ----------------------------------------------------------------------------------
-Support:
+Suporte:
 
 Lukas dos Santos Boeira
 lukasdossantosboeira@gmail.com
@@ -62,7 +64,7 @@ class MainApp:
     def __init__(self) -> None:
         self.root = tk.Tk()
         self.root.title(
-            "IVMDSS: Index Velocity Method's Data Storage System - Module 1"
+            "STAMVI: Sistema de Tratamento e Armazenamento de Dados para a Aplicação do Método das Velocidades Indexadas- Module 1"
         )
         self.root.iconbitmap("D:\TCC\index_velocity_method\img\icon.ico")
         self.root.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")
@@ -87,7 +89,7 @@ class MainApp:
 
         def about_window():
             top_abt_win = tk.Toplevel()
-            top_abt_win.title("Information")
+            top_abt_win.title("Informações")
             top_abt_win.geometry("555x655")
             top_abt_win.resizable(0, 0)
             info_lbl = tk.Label(top_abt_win, text=TEXT1)
