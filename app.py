@@ -9,11 +9,11 @@ APP_HEIGHT = 380
 TEXT1 = """
 
 O objetivo desta aplicação é funcionar como um utilitário para dar suporte ao tratamento de dados
-obtidos pelos equipamentos acústicos de effeito Doppler SideLooker 500 (SL500) e HydroSurveyor M9 da marca
+obtidos pelos equipamentos acústicos de effeito Doppler SideLooker 500 e HydroSurveyor M9 da marca
 SonTek.
 
 Execute os seguintes passos para usá-lo:
-1) Selecione um arquivo de extensão .dat proveniennte do equipamento SL500.
+1) Selecione um arquivo de extensão .dat proveniente do equipamento SL500.
 2) Insira as datas inicial e final das medição realizada pelo equipamento M9 no formato date-time.
    Ex: "1989-10-39 05:30:31" .
 3) Registre o dado no banco de dados.
@@ -28,9 +28,7 @@ Jamilson do Nascimento
 github.com/kkcortez-nscmnt
 jamil.pyhidrodev@gmail.com
 ---------------------------------------------------------------------------------
-
 Desenvolvimento:
-
 Gilberto Loguercio Collares
 gilbertocollares@gmail.com
 
@@ -41,17 +39,19 @@ George Marino Soares Gonçalves
 george.marino.goncalves@gmail.com
 ----------------------------------------------------------------------------------
 Suporte:
-
 Lukas dos Santos Boeira
 lukasdossantosboeira@gmail.com
 
 Arlene Fehrenbach
-arlenefehrenbach@outlook..com
+arlenefehrenbach@outlook.com
+----------------------------------------------------------------------
+icon : "https://www.flaticon.com/free-icons/air-flow" title="air flow icons"
 ----------------------------------------------------------------------
 Universidade Federal de Pelotas - UFPel https://portal.ufpel.edu.br
 NEPE - HidroSedi http://www.hidrosedi.com
 Agência de Desenvolvimento da Bacia da Lagoa Mirim - São Gonçalo.
 https://wp.ufpel.edu.br/alm/banco-de-dados-da-bacia-da-lagoa-mirim/
+
 
 """
 
@@ -64,7 +64,7 @@ class MainApp:
     def __init__(self) -> None:
         self.root = tk.Tk()
         self.root.title(
-            "STAMVI: Sistema de Tratamento e Armazenamento de Dados para a Aplicação do Método das Velocidades Indexadas- Module 1"
+            "STAMVI: Sistema de Tratamento e Armazenamento de dados para a Aplicação do Método das Velocidades Indexadas"
         )
         self.root.iconbitmap("D:\TCC\index_velocity_method\img\icon.ico")
         self.root.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")
@@ -90,13 +90,13 @@ class MainApp:
         def about_window():
             top_abt_win = tk.Toplevel()
             top_abt_win.title("Informações")
-            top_abt_win.geometry("555x655")
+            top_abt_win.geometry("600x730")
             top_abt_win.resizable(0, 0)
             info_lbl = tk.Label(top_abt_win, text=TEXT1)
             info_lbl.grid(row=0, column=0)
 
-        self.menu_bar.add_command(label="About", command=about_window)
-        self.menu_bar.add_command(label="Exit", command=quit)
+        self.menu_bar.add_command(label="Info", command=about_window)
+        self.menu_bar.add_command(label="Sair", command=quit)
         self.root.mainloop()
 
 

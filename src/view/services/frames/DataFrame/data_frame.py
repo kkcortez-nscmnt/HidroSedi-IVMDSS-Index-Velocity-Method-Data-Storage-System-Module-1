@@ -329,12 +329,12 @@ class FrameData(PopulateTrv, GetCod):
         try:
             if self.file_path:
                 self.m9_data._insert_m9_data_to_data_base(self, self.file_path)
-                messagebox.showinfo("Info!", "Inserted data!")
+                messagebox.showinfo("Info!", "Dado inserido!")
                 self.populate_m9_trv()
                 return None
         except:
             messagebox.showerror(
-                "Value Error", "Need to insert a related .dat file first!"
+                "Value Error", "Deve se inserir um .dat relacionado antes da inserção!"
             )
 
     def delete_data_from_mat_table(self):
@@ -342,13 +342,11 @@ class FrameData(PopulateTrv, GetCod):
         Utiliza o UseCase DeleteM9Data para apagar todos os registros
         na m9_table.
         """
-        askokcancel = messagebox.askokcancel("Attention!", "Delete the data?")
+        askokcancel = messagebox.askokcancel("Attention!", "Deletar dado?")
         try:
             if askokcancel:
                 self.m9_data_delete._delete_m9_data_to_data_base(self)
-                self.showinfo = messagebox.showinfo(
-                    "Info", "The data has been deleted!"
-                )
+                self.showinfo = messagebox.showinfo("Info", "Dados Deletados!")
                 self.populate_m9_trv()
                 return None
 
@@ -364,14 +362,13 @@ class FrameData(PopulateTrv, GetCod):
             self.cod = self.m9_data_trv.item(cod_item)
             self.query_cod = self.cod["values"][0]
         print(f"Registro selecionado {self.query_cod} ")
-        askokcancel = messagebox.askokcancel("Attention!", "Delete the data?")
+        askokcancel = messagebox.askokcancel("Attention!", "Deletar dado?")
         print(askokcancel)
         try:
             if askokcancel:
                 with DBConnectionHandler(file_name="DataBase.db") as cursor:
                     if self.query_cod is not None:
                         print(self.query_cod)
-                        print("AQUIIIIII")
                         self.query_cod = str(self.query_cod)
                         cursor.execute(
                             """ DELETE FROM mat_table WHERE cod = ? """,
@@ -382,13 +379,11 @@ class FrameData(PopulateTrv, GetCod):
                         print("Data Deletada")
                         return None
                     else:
-                        messagebox.showerror(
-                            "ERROR", "Select a row data on M9 Data View"
-                        )
+                        messagebox.showerror("ERROR", "Selecione uma linha no View M9")
                         return None
         except:
             print(f"Algo deu errado {self.query_cod}")
-            messagebox.showerror("ERROR", "Select a row data on M9 Data View")
+            messagebox.showerror("ERROR", "Selecione uma linha no View M9")
             return None
 
     def set_initial_datetime(self) -> str:
@@ -408,7 +403,7 @@ class FrameData(PopulateTrv, GetCod):
                     print(f"returned initial datetime: {self.initial_time}")
                     return self.initial_time
         except ValueError:
-            messagebox.showerror("Information", "Error: invalid format")
+            messagebox.showerror("Information", "Error: Formato inválido")
 
     def set_final_datetime(self) -> str:
         """
@@ -426,7 +421,7 @@ class FrameData(PopulateTrv, GetCod):
                     print(f"returned final datetime: {self.final_time}")
                     return self.final_time
         except ValueError:
-            messagebox.showerror("Information", "Error: invalid format")
+            messagebox.showerror("Information", "Error: Formato inválido")
 
     def load_sl500_file_data(self):
         """
@@ -462,11 +457,11 @@ class FrameData(PopulateTrv, GetCod):
             self.sl500_data._insert_sl500_data_to_data_base(
                 self, self.file_path, self.initial_time, self.final_time
             )
-            self.showinfo = messagebox.showinfo("Info!", "Inserted Data!")
+            self.showinfo = messagebox.showinfo("Info!", "Dado Inserido!")
             self.populate_sl500_trv()
         except:
             self.showerror = messagebox.showerror(
-                "Error", "Data not found in the specified time interval"
+                "Error", "Dado não encontrado no intervalo de tempo especificado"
             )
 
         return None
@@ -476,12 +471,12 @@ class FrameData(PopulateTrv, GetCod):
         Utiliza o UseCase DeleteSL500Data para apagar todos os registros
         na sl500_table.
         """
-        self.askokcancel = messagebox.askokcancel("Attention!", "Delete the data?")
+        self.askokcancel = messagebox.askokcancel("Attention!", "Deletar dados ?")
         try:
             if self.askokcancel:
                 self.sl500_data_delete._delete_SL500_data_to_data_base(self)
                 self.showinfo = messagebox.showinfo(
-                    "Info", " The data has been deleted!"
+                    "Info", " Dados deletados do banco de dados!"
                 )
                 self.populate_sl500_trv()
                 return None
@@ -497,29 +492,24 @@ class FrameData(PopulateTrv, GetCod):
             self.cod = self.sl500_data_trv.item(cod_item)
             self.query_cod = self.cod["values"][0]
         print(f"Registro selecionado {self.query_cod} ")
-        askokcancel = messagebox.askokcancel("Attention!", "Delete the data?")
+        askokcancel = messagebox.askokcancel("Attention!", "Deletar dados?")
         print(askokcancel)
         try:
             if askokcancel:
                 with DBConnectionHandler(file_name="DataBase.db") as cursor:
                     if self.query_cod is not None:
                         print(self.query_cod)
-                        print("PowerBI faz isso ?")
                         self.query_cod = str(self.query_cod)
                         cursor.execute(
                             """ DELETE FROM dat_table WHERE cod = ? """,
                             (self.query_cod,),
                         )
-                        # self.populate_sl500_trv()
                         self.query_cod = None
-                        print("Data Deletada")
                         return None
                     else:
-                        messagebox.showerror(
-                            "ERROR", "Select a row data on M9 Data View"
-                        )
+                        messagebox.showerror("ERROR", "Selecione uma linha na View M9")
                         return None
         except:
             print(f"Algo deu errado {self.query_cod}")
-            messagebox.showerror("ERROR", "Select a row data on M9 Data View")
+            messagebox.showerror("ERROR", "Selecione uma linha na M9 View")
             return None
