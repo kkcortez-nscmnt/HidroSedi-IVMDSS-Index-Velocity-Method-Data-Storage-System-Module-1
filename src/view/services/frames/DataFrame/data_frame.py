@@ -334,7 +334,8 @@ class FrameData(PopulateTrv, GetCod):
                 return None
         except:
             messagebox.showerror(
-                "Value Error", "Deve se inserir um .dat relacionado antes da inserção!"
+                "Value Error",
+                "Deve-se inserir um registro .dat com correspondência relacionada antes da inserção!",
             )
 
     def delete_data_from_mat_table(self):
@@ -507,9 +508,11 @@ class FrameData(PopulateTrv, GetCod):
                         self.query_cod = None
                         return None
                     else:
-                        messagebox.showerror("ERROR", "Selecione uma linha na View M9")
+                        messagebox.showerror(
+                            "ERROR", "Selecione uma linha na View SL500"
+                        )
                         return None
         except:
             print(f"Algo deu errado {self.query_cod}")
-            messagebox.showerror("ERROR", "Selecione uma linha na M9 View")
+            messagebox.showerror("ERROR", "Selecione uma linha na View SL500")
             return None
