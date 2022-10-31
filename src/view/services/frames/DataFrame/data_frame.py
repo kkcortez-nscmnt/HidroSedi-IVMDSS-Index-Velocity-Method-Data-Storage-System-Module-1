@@ -91,34 +91,65 @@ class FrameData(PopulateTrv, GetCod):
         self.label_export_data = ttk.LabelFrame(
             self.data_container_frame, text="Exportar Dados:"
         )
-        self.label_export_data.place(relx=0.015, rely=0.8, height=60, width=320)
+        self.label_export_data.place(relx=0.015, rely=0.8, height=60, width=180)
 
+        ########## Serviços de Regressão ##########
+        self.label_regression = ttk.LabelFrame(
+            self.data_container_frame, text=" Velocidades Indexadas - Relações:"
+        )
+        self.label_regression.place(relx=0.17, rely=0.8, height=60, width=263)
+
+        ######### Botões ##########
         self.export_xlxs_btn = ttk.Button(
             self.label_export_data,
             padding=2,
-            text="Exportar .xlsx",
+            text="Como .xlsx",
             command=lambda: self.export_file.export_to_excel(self),
         )
-        self.export_xlxs_btn.place(relx=0.02, rely=0.3)
+        self.export_xlxs_btn.place(relx=0.01, rely=0.3)
 
         self.export_csv_btn = ttk.Button(
             self.label_export_data,
             padding=2,
-            text="Exportar .csv",
+            text="Como .csv",
             command=lambda: self.export_file.export_to_csv(self),
         )
-        self.export_csv_btn.place(relx=0.35, rely=0.3)
+        self.export_csv_btn.place(relx=0.54, rely=0.3)
 
-        self.del_all_data_btn = ttk.Button(
-            self.label_export_data,
+        self.mmq_nivel_area = ttk.Button(
+            self.label_regression,
             padding=2,
-            text="Deletar Dados",
-            command=lambda: [
-                self.delete_data_from_dat_table(),
-                self.delete_data_from_mat_table(),
-            ],
+            text="Nível-Área",
+            command=lambda: self.export_file.export_to_excel(self),
         )
-        self.del_all_data_btn.place(relx=0.67, rely=0.3)
+        self.mmq_nivel_area.place(relx=0.01, rely=0.3)
+
+        self.mmq_velmed_velx = ttk.Button(
+            self.label_regression,
+            padding=2,
+            text="Vel méd-Vel x",
+            command=lambda: self.export_file.export_to_csv(self),
+        )
+        self.mmq_velmed_velx.place(relx=0.34, rely=0.3)
+
+        self.vel_index = ttk.Button(
+            self.label_regression,
+            padding=2,
+            text="Vel Index",
+            command=lambda: self.export_file.export_to_csv(self),
+        )
+        self.vel_index.place(relx=0.69, rely=0.3)
+
+        # self.del_all_data_btn = ttk.Button(
+        #     self.label_export_data,
+        #     padding=2,
+        #     text="Deletar Dados",
+        #     command=lambda: [
+        #         self.delete_data_from_dat_table(),
+        #         self.delete_data_from_mat_table(),
+        #     ],
+        # )
+        # self.del_all_data_btn.place(relx=0.6, rely=0.3)
 
         ########## Serviços dos dados do M9 ##########
         self.label_frame_m9 = ttk.LabelFrame(

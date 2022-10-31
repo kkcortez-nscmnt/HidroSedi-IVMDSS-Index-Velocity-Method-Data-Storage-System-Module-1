@@ -15,6 +15,7 @@ class MinimosQuadradosNivelArea(LinearRegression):
         self.dat_repository = DatEntityRepository()
         self.lista_area = None
         self.lista_nivel = None
+        self.mmq_nivel_area = None
 
     def configurar_var_independente_area(self) -> np.array:
         """

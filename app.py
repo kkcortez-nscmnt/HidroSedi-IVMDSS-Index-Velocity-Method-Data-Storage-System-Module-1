@@ -69,7 +69,7 @@ class MainApp:
         self.root.iconbitmap("D:\TCC\index_velocity_method\img\icon.ico")
         self.root.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")
         self.root.minsize(width=APP_WIDTH, height=APP_HEIGHT)
-        self.root.resizable(1, 0)
+        self.root.resizable(0, 0)
 
         self.mat_entity = MatEntity()
         self.mat_entity.create_mat_table()
