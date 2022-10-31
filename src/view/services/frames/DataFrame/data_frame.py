@@ -17,6 +17,7 @@ from src.usecase import (
 
 class PopulateTrv:
     def populate_m9_trv(self) -> None:
+        # comentario
         with DBConnectionHandler("DataBase.db") as cursor:
             self.m9_data_trv.delete(*self.m9_data_trv.get_children())
             query = "SELECT cod, flow_rate, area, mean_velocity FROM mat_table"
