@@ -634,12 +634,9 @@ class FrameData(PopulateTrv, GetCod):
         """
         Configura e aplica as series de vazão
         """
-        self.mtx_vazao_obs = self.obtem_serie_vazao.configura_var_vazao_observada()
-        print(self.variaveis_estimadas_de_area)
-        print(self.variaveis_estimadas_de_vmed)
-        if self.variaveis_estimadas_de_area or self.variaveis_estimadas_de_vmed is None:
-            messagebox.showerror("ERROR", "Execute as regressões primeiro")
-        else:
+        try:
+            self.mtx_vazao_obs = self.obtem_serie_vazao.configura_var_vazao_observada()
+            print(self.mtx_vazao_obs)
             print(self.variaveis_estimadas_de_area)
             print(self.variaveis_estimadas_de_vmed)
             self.mtx_vazao_estimada = (
@@ -653,3 +650,5 @@ class FrameData(PopulateTrv, GetCod):
             self.obtem_serie_vazao.plotar_grafico_vazao_observada_vazao_estimada(
                 self.mtx_vazao_obs, self.mtx_vazao_estimada
             )
+        except:
+            messagebox.showerror("ERROR", "Execute as regressões primeiro")
