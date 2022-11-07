@@ -6,12 +6,15 @@ from typing import Type
 from src.infra.config import DBConnectionHandler
 from src.infra.repositories import DatEntityRepository, MatEntityRepository
 from src.usecase import (
+    ObtemSerieVazao,
     DeleteM9Data,
     DeleteSL500Data,
+    ExportFile,
     FileDiolog,
     InsertM9Data,
     InsertSl500Data,
-    ExportFile,
+    MinimosQuadradosNivelArea,
+    MinimosQuadradosVelxVelMed,
 )
 
 
@@ -75,6 +78,11 @@ class FrameData(PopulateTrv, GetCod):
         self.sl500_data_delete = sl500_data_delete
         self.dat_entity_repository = dat_entity_repository
         self.export_file = export_file
+        self.variaveis_estimadas_de_area = None
+        self.variaveis_estimadas_de_vmed = None
+        self.mmq_nivel_area = MinimosQuadradosNivelArea()
+        self.mmq_velmed_velx = MinimosQuadradosVelxVelMed()
+        self.obtem_serie_vazao = ObtemSerieVazao()
 
         self.var_initial_datetime = tk.StringVar()
         self.var_final_datetime = tk.StringVar()
@@ -82,6 +90,11 @@ class FrameData(PopulateTrv, GetCod):
         # variavel de estado
         self.file_path_m9 = None
         self.file_path_sl500 = None
+        self.regressao = None
+        self.mtx_var_independente_nivel = None
+        self.mtx_var_dependente_area = None
+        self.mtx_var_independente_velx = None
+        self.mtx_var_dependente_vmed = None
         self.query_cod = query_cod
 
         # Frame de contenção
@@ -117,29 +130,29 @@ class FrameData(PopulateTrv, GetCod):
         )
         self.export_csv_btn.place(relx=0.54, rely=0.3)
 
-        self.mmq_nivel_area = ttk.Button(
+        self.btn_mmq_nivel_area = ttk.Button(
             self.label_regression,
             padding=2,
             text="Nível-Área",
-            command=lambda: self.export_file.export_to_excel(self),
+            command=lambda: self.regressao_nivel_area(),
         )
-        self.mmq_nivel_area.place(relx=0.01, rely=0.3)
+        self.btn_mmq_nivel_area.place(relx=0.01, rely=0.3)
 
-        self.mmq_velmed_velx = ttk.Button(
+        self.btn_mmq_velmed_velx = ttk.Button(
             self.label_regression,
             padding=2,
             text="Vel méd-Vel x",
-            command=lambda: self.export_file.export_to_csv(self),
+            command=lambda: self.regressao_velx_vel_med(),
         )
-        self.mmq_velmed_velx.place(relx=0.34, rely=0.3)
+        self.btn_mmq_velmed_velx.place(relx=0.34, rely=0.3)
 
-        self.vel_index = ttk.Button(
+        self.btn_vel_index = ttk.Button(
             self.label_regression,
             padding=2,
             text="Vel Index",
-            command=lambda: self.export_file.export_to_csv(self),
+            command=lambda: self.configurar_serie_vazão(),
         )
-        self.vel_index.place(relx=0.69, rely=0.3)
+        self.btn_vel_index.place(relx=0.69, rely=0.3)
 
         # self.del_all_data_btn = ttk.Button(
         #     self.label_export_data,
@@ -548,3 +561,95 @@ class FrameData(PopulateTrv, GetCod):
             print(f"Algo deu errado {self.query_cod}")
             messagebox.showerror("ERROR", "Selecione uma linha na View SL500")
             return None
+
+    def regressao_nivel_area(self) -> None:
+        """
+        Executa regressão linear
+        """
+
+        self.regressao = self.mmq_nivel_area
+        self.mtx_var_independente_nivel = (
+            self.regressao.configura_var_independente_nivel()
+        )
+        print(f" mtx_var_independente_nivel {self.mtx_var_independente_nivel}")
+        self.mtx_var_dependente_area = self.regressao.configura_var_dependente_area()
+        print(f"mtx_var_dependente_area {self.mtx_var_dependente_area}")
+        self.regressao.minimos_quadrados_nivel_area(
+            self.mtx_var_independente_nivel, self.mtx_var_dependente_area
+        )
+        self.coef_linear = self.regressao.obter_coef_linear()
+        self.coef_angular = self.regressao.obter_coef_angular()
+        self.variaveis_estimadas_de_area = (
+            self.regressao.obter_variaveis_estimadas_de_area(
+                self.mtx_var_independente_nivel
+            )
+        )
+        self.regressao.plotar_grafico_do_ajuste_nivel_area(
+            self.mtx_var_independente_nivel,
+            self.mtx_var_dependente_area,
+            self.variaveis_estimadas_de_area,
+        )
+
+        self.regressao.plotar_grafico_residuais_nivel_area(
+            self.mtx_var_independente_nivel, self.mtx_var_dependente_area
+        )
+
+    def regressao_velx_vel_med(self) -> None:
+        """
+        Executa regressão linear
+        """
+        self.regressao = self.mmq_velmed_velx
+        self.mtx_var_independente_velx = (
+            self.regressao.configura_var_independente_velx()
+        )
+        print(f"mtx_var_independente_velx {self.mtx_var_independente_velx}")
+
+        self.mtx_var_dependente_vmed = self.regressao.configura_var_dependente_vmed()
+        print(f"mtx_var_dependente_velmed {self.mtx_var_dependente_vmed}")
+
+        self.regressao.minimos_quadrados_velx_velmed(
+            self.mtx_var_independente_velx, self.mtx_var_dependente_vmed
+        )
+
+        self.coef_linear = self.regressao.obter_coef_linear()
+        self.coef_angular = self.regressao.obter_coef_angular()
+
+        self.variaveis_estimadas_de_vmed = (
+            self.regressao.obter_variaveis_estimadas_de_vmed(
+                self.mtx_var_independente_velx
+            )
+        )
+
+        self.regressao.plotar_grafico_do_ajuste_velx_vmed(
+            self.mtx_var_independente_velx,
+            self.mtx_var_dependente_vmed,
+            self.variaveis_estimadas_de_vmed,
+        )
+
+        self.regressao.plotar_grafico_residuais_velx_vmed(
+            self.mtx_var_independente_velx, self.mtx_var_dependente_vmed
+        )
+
+    def configurar_serie_vazão(self) -> None:
+        """
+        Configura e aplica as series de vazão
+        """
+        self.mtx_vazao_obs = self.obtem_serie_vazao.configura_var_vazao_observada()
+        print(self.variaveis_estimadas_de_area)
+        print(self.variaveis_estimadas_de_vmed)
+        if self.variaveis_estimadas_de_area or self.variaveis_estimadas_de_vmed is None:
+            messagebox.showerror("ERROR", "Execute as regressões primeiro")
+        else:
+            print(self.variaveis_estimadas_de_area)
+            print(self.variaveis_estimadas_de_vmed)
+            self.mtx_vazao_estimada = (
+                self.obtem_serie_vazao.obter_serie_estimadas_de_vazao(
+                    self.variaveis_estimadas_de_vmed, self.variaveis_estimadas_de_area
+                )
+            )
+            self.obtem_serie_vazao.obter_coeficiente_de_nash_sutcliffe(
+                self.mtx_vazao_obs, self.mtx_vazao_estimada
+            )
+            self.obtem_serie_vazao.plotar_grafico_vazao_observada_vazao_estimada(
+                self.mtx_vazao_obs, self.mtx_vazao_estimada
+            )

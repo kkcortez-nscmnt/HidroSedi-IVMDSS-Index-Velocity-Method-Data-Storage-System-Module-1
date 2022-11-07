@@ -1,7 +1,6 @@
 import numpy as np
 import plotly.express as px
 from sklearn.linear_model import LinearRegression
-from src.cria_data_frame import CriaDataFrame
 from src.infra.repositories import MatEntityRepository
 
 
@@ -11,7 +10,7 @@ class ObtemSerieVazao(LinearRegression):
     """
 
     def __init__(self) -> None:
-        self.data_frame = CriaDataFrame()
+
         self.mat_repository = MatEntityRepository()
         self.vmed_estimada = None
         self.area_estimada = None
@@ -25,7 +24,7 @@ class ObtemSerieVazao(LinearRegression):
         :return - matriz numpy
         """
         self.vazao_obs = self.mat_repository.select_flow_rate_from_mat_table()
-        self.vazao_obs = np.array(self.df.total_q)
+        self.vazao_obs = np.array(self.vazao_obs)
         self.mtx_vazao_obs = self.vazao_obs.reshape(-1, 1)
 
         return self.mtx_vazao_obs

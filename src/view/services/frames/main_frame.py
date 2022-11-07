@@ -8,6 +8,9 @@ from src.usecase import (
     InsertM9Data,
     InsertSl500Data,
     ExportFile,
+    # MinimosQuadradosNivelArea,
+    # MinimosQuadradosVelxVelMed,
+    # ObtemSerieVazao,
 )
 from src.view.services.frames.DataFrame import FrameData
 

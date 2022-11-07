@@ -23,7 +23,7 @@ class MinimosQuadradosVelxVelMed(LinearRegression):
         :return - matriz numpy
         """
         self.lista_velx = self.dat_repository.select_velocity_x_from_dat_table()
-        self.lista_velx = np.array(self.df.velocity_x)
+        self.lista_velx = np.array(self.lista_velx)
         self.mtx_velx = self.lista_velx.reshape(-1, 1)
 
         return self.mtx_velx
@@ -34,7 +34,7 @@ class MinimosQuadradosVelxVelMed(LinearRegression):
         :return - Matriz numpy
         """
         self.lista_vmed = self.mat_repository.select_mean_velocity_from_mat_table()
-        self.lista_vmed = np.array(self.df.mean_velocity)
+        self.lista_vmed = np.array(self.lista_vmed)
         self.mtx_vmed = self.lista_vmed.reshape(-1, 1)
 
         return self.mtx_vmed

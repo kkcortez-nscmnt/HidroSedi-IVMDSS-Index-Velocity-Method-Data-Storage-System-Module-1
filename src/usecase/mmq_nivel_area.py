@@ -17,7 +17,7 @@ class MinimosQuadradosNivelArea(LinearRegression):
         self.lista_nivel = None
         self.mmq_nivel_area = None
 
-    def configurar_var_independente_area(self) -> np.array:
+    def configura_var_dependente_area(self) -> np.array:
         """
         Retorna matriz da variavel independente area
         :param - None
@@ -29,7 +29,7 @@ class MinimosQuadradosNivelArea(LinearRegression):
         self.mtx_area = self.lista_area.reshape(-1, 1)
         return self.mtx_area
 
-    def configurar_var_independente_nivel(self) -> np.array:
+    def configura_var_independente_nivel(self) -> np.array:
         """
         Retorna matriz da variavel independente nivel
         :param - None
