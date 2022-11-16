@@ -17,7 +17,7 @@ class MatEntity:
                 """
                 CREATE TABLE IF NOT EXISTS mat_table (
                     cod INTERGER NOT NULL,
-                    flow_rate NUMERIC(10,3) PRIMARY KEY,
+                    flow_rate NUMERIC(10,3) NOT NULL,
                     area NUMERIC(10,3) NOT NULL,
                     mean_velocity NUMERIC(10,3) NOT NULL,
                     FOREIGN KEY (cod) REFERENCES dat_table(cod)
