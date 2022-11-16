@@ -75,10 +75,13 @@ class MatEntityRepository:
         query_data = None
 
         with DBConnectionHandler(file_name="DataBase.db") as cursor:
-            flow_rate_data = cursor.execute("""SELECT flow_rate FROM mat_table""")
+            flow_rate_data = cursor.execute(
+                """SELECT flow_rate FROM mat_table"""
+            ).fetchall()
             query_data = flow_rate_data
+            print(f"query data{query_data}")
             flow_rate_list = [flow_rate[0] for flow_rate in query_data]
-            print(type(flow_rate_list))
+            print(f"lista flow_rate_list{flow_rate_list}")
             return flow_rate_list
 
     def select_mean_velocity_from_mat_table(self):
@@ -90,8 +93,9 @@ class MatEntityRepository:
         query_data = None
 
         with DBConnectionHandler(file_name="DataBase.db") as cursor:
-            mean_velocity_data = cursor.execute("""SELECT flow_rate FROM mat_table""")
+            mean_velocity_data = cursor.execute(
+                """SELECT mean_velocity FROM mat_table"""
+            )
             query_data = mean_velocity_data
             mean_velocity_list = [mean_velocity[0] for mean_velocity in query_data]
-            print(type(mean_velocity_list))
             return mean_velocity_list

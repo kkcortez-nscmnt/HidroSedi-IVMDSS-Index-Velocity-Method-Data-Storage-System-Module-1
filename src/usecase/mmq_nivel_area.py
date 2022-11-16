@@ -1,8 +1,9 @@
 import numpy as np
 import plotly.express as px
 from sklearn.linear_model import LinearRegression
-from src.infra.repositories import DatEntityRepository, MatEntityRepository
 from yellowbrick.regressor import ResidualsPlot
+
+from src.infra.repositories import DatEntityRepository, MatEntityRepository
 
 
 class MinimosQuadradosNivelArea(LinearRegression):
@@ -17,6 +18,17 @@ class MinimosQuadradosNivelArea(LinearRegression):
         self.lista_nivel = None
         self.mmq_nivel_area = None
 
+    def configura_var_independente_nivel(self) -> np.array:
+        """
+        Retorna matriz da variavel independente nivel
+        :param - None
+        :return - matriz np.array
+        """
+        self.lista_nivel = self.dat_repository.select_level_from_dat_table()
+        self.lista_nivel = np.array(self.lista_nivel)
+        self.mtx_nivel = self.lista_nivel.reshape(-1, 1)
+        return self.mtx_nivel
+
     def configura_var_dependente_area(self) -> np.array:
         """
         Retorna matriz da variavel independente area
@@ -29,17 +41,6 @@ class MinimosQuadradosNivelArea(LinearRegression):
         self.mtx_area = self.lista_area.reshape(-1, 1)
         return self.mtx_area
 
-    def configura_var_independente_nivel(self) -> np.array:
-        """
-        Retorna matriz da variavel independente nivel
-        :param - None
-        :return - matriz np.array
-        """
-        self.lista_nivel = self.dat_repository.select_level_from_dat_table()
-        self.lista_nivel = np.array(self.lista_nivel)
-        self.mtx_nivel = self.lista_nivel.reshape(-1, 1)
-        return self.mtx_nivel
-
     def minimos_quadrados_nivel_area(self, mtx_nivel, mtx_area) -> None:
         """
         Executa o ajuste da reta pelo metodo dos minimos quadrados.
@@ -51,7 +52,7 @@ class MinimosQuadradosNivelArea(LinearRegression):
         self.mtx_nivel = mtx_nivel
         self.mtx_area = mtx_area
         self.mmq_nivel_area = LinearRegression()
-        self.mmq_nivel_area.fit(mtx_nivel, mtx_area)
+        self.mmq_nivel_area.fit(self.mtx_nivel, self.mtx_area)
         return None
 
     def obter_coef_linear(self) -> float:

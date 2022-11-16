@@ -95,6 +95,7 @@ class FrameData(PopulateTrv, GetCod):
         self.mtx_var_dependente_area = None
         self.mtx_var_independente_velx = None
         self.mtx_var_dependente_vmed = None
+        self.mtx_vazao_obs = None
         self.query_cod = query_cod
 
         # Frame de contenção
@@ -636,9 +637,7 @@ class FrameData(PopulateTrv, GetCod):
         """
         try:
             self.mtx_vazao_obs = self.obtem_serie_vazao.configura_var_vazao_observada()
-            print(self.mtx_vazao_obs)
-            print(self.variaveis_estimadas_de_area)
-            print(self.variaveis_estimadas_de_vmed)
+            print(f" vazão observada {self.mtx_vazao_obs} ")
             self.mtx_vazao_estimada = (
                 self.obtem_serie_vazao.obter_serie_estimadas_de_vazao(
                     self.variaveis_estimadas_de_vmed, self.variaveis_estimadas_de_area
